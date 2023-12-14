@@ -1,6 +1,7 @@
 import logging
 import sys
 import subprocess
+import psutil
 from math import sqrt
 from colorsys import rgb_to_hls, hls_to_rgb
 
@@ -82,10 +83,11 @@ def silent_Popen(cmd):
 
 
 def get_pid(name):
-    """Check if a process is running, borrowed from a newer pywal version"""
-    try:
-        subprocess.check_output(["pidof", "-s", name])
-    except subprocess.CalledProcessError:
-        return False
+    """Check if process is running by name."""
 
-    return True
+    pid = None
+    for proc in psutil.process_iter():
+        if name in proc.name():
+            pid = proc.pid
+            return True
+    return False
