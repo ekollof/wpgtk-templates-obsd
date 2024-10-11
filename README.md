@@ -1,4 +1,3 @@
-
 # :flower_playing_cards: _wpgtk_
 
 ![PyPI](https://img.shields.io/pypi/v/wpgtk.svg?style=flat-square)
@@ -56,3 +55,6 @@ If you found this project helpful and would like to give back in some way, you c
 ## License
 
 This project is licensed under the GPLv2 License - see the [LICENSE](LICENSE) file for details
+=======
+# wpgtk-themes
+Themes and icons for wpgtk are placed here.
