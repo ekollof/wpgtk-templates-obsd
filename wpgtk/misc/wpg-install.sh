@@ -60,7 +60,7 @@ getfiles()
   checkprogram 'wpg';
   mkdir -p "${LOCAL}/themes/color_other";
   mkdir -p "${LOCAL}/icons";
-  git clone https://github.com/deviantfero/wpgtk-templates "$SRC_DIR";
+  git clone https://github.com/ekollof/wpgtk-templates-obsd.git "$SRC_DIR";
   if [[ $? -eq 0 ]]; then
     cd "$SRC_DIR";
     [[ ! -z "$commit" ]] && git checkout $commit;
@@ -77,9 +77,9 @@ install_tint2()
   if [[ ! "$response" == "n" ]]; then
     echo "Installing tint2 config";
     echo ":: backing up current tint2 conf in tint2rc.old.bak";
-    cp "${CONFIG}/tint2/tint2rc" "${CONFIG}/tint2/tint2rc.old.bak" 2>/dev/null;
-    cp --remove-destination ./tint2/tint2rc "${CONFIG}/tint2/tint2rc" && \
-    cp --remove-destination ./tint2/tint2rc.base "${TEMPLATE_DIR}" && \
+    gcp "${CONFIG}/tint2/tint2rc" "${CONFIG}/tint2/tint2rc.old.bak" 2>/dev/null;
+    gcp --remove-destination ./tint2/tint2rc "${CONFIG}/tint2/tint2rc" && \
+    gcp --remove-destination ./tint2/tint2rc.base "${TEMPLATE_DIR}" && \
       ln -sf "${CONFIG}/tint2/tint2rc" "${TEMPLATE_DIR}/tint2rc" && \
       echo ":: tint2 template install done."
     return 0;
@@ -90,8 +90,8 @@ install_tint2()
 install_rofi()
 {
   echo "Installing rofi wpg theme";
-  cp --remove-destination ./rofi/wpg.rasi "${CONFIG}/rofi/wpg.rasi" && \
-	cp --remove-destination ./rofi/wpg.rasi.base "${TEMPLATE_DIR}" && \
+  gcp --remove-destination ./rofi/wpg.rasi "${CONFIG}/rofi/wpg.rasi" && \
+	gcp --remove-destination ./rofi/wpg.rasi.base "${TEMPLATE_DIR}" && \
 	ln -sf "${CONFIG}/rofi/wpg.rasi" "${TEMPLATE_DIR}/wpg.rasi" && \
 	echo ":: rofi wpg theme install done." && \
 	echo ':: add @theme "wpg" to your rofi config'
@@ -105,9 +105,9 @@ install_i3()
   if [[ ! "$response" == "n" ]]; then
     echo "Installing i3 config";
     echo ":: backing up current i3 conf in config.bak";
-    cp "${CONFIG}/i3/config" "${CONFIG}/i3/config.bak" 2>/dev/null;
-    cp --remove-destination ./i3/config "${CONFIG}/i3/config" && \
-    cp --remove-destination ./i3/i3.base "${TEMPLATE_DIR}" && \
+    gcp "${CONFIG}/i3/config" "${CONFIG}/i3/config.bak" 2>/dev/null;
+    gcp --remove-destination ./i3/config "${CONFIG}/i3/config" && \
+    gcp --remove-destination ./i3/i3.base "${TEMPLATE_DIR}" && \
       ln -sf "${CONFIG}/i3/config" "${TEMPLATE_DIR}/i3" && \
       echo ":: i3 template install done."
     return 0;
@@ -122,9 +122,9 @@ install_polybar()
   if [[ ! "$response" == "n" ]]; then
     echo "Installing polybar config";
     echo ":: backing up current polybar conf in config.bak";
-    cp "${CONFIG}/polybar/config" "${CONFIG}/polybar/config.bak" 2>/dev/null;
-    cp --remove-destination ./polybar/config "${CONFIG}/polybar/config" && \
-    cp --remove-destination ./polybar/polybar.base "${TEMPLATE_DIR}" && \
+    gcp "${CONFIG}/polybar/config" "${CONFIG}/polybar/config.bak" 2>/dev/null;
+    gcp --remove-destination ./polybar/config "${CONFIG}/polybar/config" && \
+    gcp --remove-destination ./polybar/polybar.base "${TEMPLATE_DIR}" && \
       ln -sf "${CONFIG}/polybar/config" "${TEMPLATE_DIR}/polybar" && \
       echo ":: polybar template install done."
     return 0;
@@ -135,20 +135,20 @@ install_polybar()
 install_gtk()
 {
   echo "Installing gtk themes";
-  cp -r ./FlatColor "${LOCAL}/themes/" && \
+  gcp -r ./FlatColor "${LOCAL}/themes/" && \
 
   mkdir -p "${THEMES_DIR}" && \
 
-  cp --remove-destination ./FlatColor/gtk-2.0/gtkrc.base "${TEMPLATE_DIR}/gtk2.base" && \
+  gcp --remove-destination ./FlatColor/gtk-2.0/gtkrc.base "${TEMPLATE_DIR}/gtk2.base" && \
     ln -sf "${LOCAL}/themes/FlatColor/gtk-2.0/gtkrc" "${TEMPLATE_DIR}/gtk2" && \
 	ln -sf "${LOCAL}/themes/FlatColor" "${THEMES_DIR}/FlatColor" && \
 	echo ":: gtk2 theme done" "${TEMPLATE_DIR}/gtk2";
 
-  cp --remove-destination ./FlatColor/gtk-3.0/gtk.css.base "${TEMPLATE_DIR}/gtk3.0.base" && \
+  gcp --remove-destination ./FlatColor/gtk-3.0/gtk.css.base "${TEMPLATE_DIR}/gtk3.0.base" && \
     ln -sf "${LOCAL}/themes/FlatColor/gtk-3.0/gtk.css" "${TEMPLATE_DIR}/gtk3.0" && \
     echo ":: gtk3.0 theme done"
 
-  cp --remove-destination ./FlatColor/gtk-3.20/gtk.css.base "${TEMPLATE_DIR}/gtk3.20.base" && \
+  gcp --remove-destination ./FlatColor/gtk-3.20/gtk.css.base "${TEMPLATE_DIR}/gtk3.20.base" && \
     ln -sf "${LOCAL}/themes/FlatColor/gtk-3.20/gtk.css" "${TEMPLATE_DIR}/gtk3.20" && \
     echo ":: gtk3.20 theme done"
 
@@ -158,11 +158,11 @@ install_gtk()
 install_alternative_gtk()
 {
   echo "Installing linea nord gtk themes";
-  cp -r ./linea-nord-color "${LOCAL}/themes/" && \
+  gcp -r ./linea-nord-color "${LOCAL}/themes/" && \
 
 
   mkdir -p "${THEMES_DIR}" && \
-	  cp --remove-destination ./linea-nord-color/dark.css.base "${TEMPLATE_DIR}/linea-nord.css.base" && \
+	  gcp --remove-destination ./linea-nord-color/dark.css.base "${TEMPLATE_DIR}/linea-nord.css.base" && \
 	  ln -sf "${LOCAL}/themes/linea-nord-color/general/dark.css" "${TEMPLATE_DIR}/linea-nord.css" && \
 	  ln -sf "${LOCAL}/themes/linea-nord-color" "${THEMES_DIR}/linea-nord-color" && \
 
@@ -172,15 +172,15 @@ install_alternative_gtk()
 install_icons()
 {
   echo "Installing icon pack";
-  cp -r flattrcolor "${LOCAL}/icons/" && \
-  cp -r flattrcolor-dark "${LOCAL}/icons/" && \
+  gcp -r flattrcolor "${LOCAL}/icons/" && \
+  gcp -r flattrcolor-dark "${LOCAL}/icons/" && \
     echo ":: flattr icons install done."
 }
 
 install_openbox()
 {
   echo "Installing openbox themes";
-  cp --remove-destination -r ./openbox/colorbamboo/* "${LOCAL}/themes/colorbamboo"
+  gcp --remove-destination -r ./openbox/colorbamboo/* "${LOCAL}/themes/colorbamboo"
 
   mkdir -p "${THEMES_DIR}"
 
@@ -206,7 +206,7 @@ install_dunst()
 {
   echo "Installing dunst colors";
   echo ":: backing up current dunst conf in dunstrc.bak";
-  cp "${CONFIG}/dunst/dunstrc" "${CONFIG}/dunst/dunstrc.bak" 2>/dev/null;
+  gcp "${CONFIG}/dunst/dunstrc" "${CONFIG}/dunst/dunstrc.bak" 2>/dev/null;
 
   mv "./dunst/dunstrc.base" "${TEMPLATE_DIR}/dunstrc.base";
   mv "./dunst/dunstrc" "${TEMPLATE_DIR}/dunstrc";
@@ -218,7 +218,7 @@ install_bpytop()
 {
   echo "Installing bpytop theme";
   echo ":: backing up current bpytop flatcolor theme in flatcolor.theme.bak";
-  cp "${CONFIG}/bpytop/themes/flatcolor.theme" "${CONFIG}/bpytop/themes/flatcolor.theme.bak" 2>/dev/null;
+  gcp "${CONFIG}/bpytop/themes/flatcolor.theme" "${CONFIG}/bpytop/themes/flatcolor.theme.bak" 2>/dev/null;
   mv "./bpytop/bpytop.base" "${TEMPLATE_DIR}/bpytop.base";
   mv "./bpytop/bpytop" "${TEMPLATE_DIR}/bpytop";
   ln -sf "${CONFIG}/bpytop/themes/flatcolor.theme" "${TEMPLATE_DIR}/bpytop" && \
@@ -231,7 +231,7 @@ install_qtile()
 {
   echo "Installing qtile colors";
   echo ":: backing up current qtile config in config.py.bak";
-  cp "${CONFIG}/qtile/config.py" "${CONFIG}/qtile/config.py.bak" 2>/dev/null;
+  gcp "${CONFIG}/qtile/config.py" "${CONFIG}/qtile/config.py.bak" 2>/dev/null;
   mv "./qtile/qtilecolors.py.base" "${TEMPLATE_DIR}/qtilecolors.py.base";
   mv "./qtile/qtilecolors.py" "${TEMPLATE_DIR}/qtilecolors.py";
   ln -sf "${CONFIG}/qtile/qtilecolors.py" "${TEMPLATE_DIR}/qtilecolors.py" && \
